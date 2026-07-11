@@ -59,11 +59,7 @@ def subjects_choices(call):
     chosen_subject = call.data.replace('sub_', '')
     bot.send_message(call.message.chat.id, f'Вот темы из предмета {chosen_subject}:')
     bot.answer_callback_query(call.id)
-    # bot.edit_message_reply_markup(
-    #     chat_id=call.message.chat.id,
-    #     message_id=call.message.message_id,
-    #     reply_markup=None
-    # )
+
 
     id_subject = look_id_subject(subject=chosen_subject)
     topics = look_topic_questions(subject_id=id_subject) #-------
@@ -126,29 +122,6 @@ def strat_test(call):
         
         # Сразу пишем пользователю первый вопрос
         bot.send_message(chat_id, f"Тест начался!\n\nВопрос №1: {first_question}")
-
-
-
-
-    # if chosen_topic == 'да' and call.message.chat.id in session_users and session_users[call.message.chat.id].get('start_topic_1'):
-    #     bot.send_message(call.message.chat.id, f'{look_questions_in_test(session_users[call.message.chat.id]['start_topic_1'])}')
-    #     test = look_questions_in_test(session_users[call.message.chat.id]['start_topic_1'])
-    #     chat_id = call.message.chat.id
-    #     if chat_id not in session_users:
-    #         session_users[chat_id] = {}
-    #     session_users[chat_id]['start_test'] = (test, 10101010)
-        
-    #     print(session_users)
-
-
-
-
-
-        # if session_users[call.message.chat.id]:
-        #     session_users[call.message.chat.id]['start_test'] = (test, 10101010)
-        # else: 
-        #     session_users[call.message.chat.id] = {'start_test': (test, 10101010)}
-    # bot.send_message(call.message.chat.id, f'Вот выбранная тема {chosen_topic}:')
 
 
 @bot.message_handler(func=lambda message: message.chat.id in session_users and session_users[message.chat.id].get('start_test'))
@@ -217,37 +190,6 @@ def f(message):
         user_session[chat_id] = {}
 
 
-
-#     print(111111)
-#     chat_id = message.chat.id  
-#     test = session_users[chat_id]['start_test']
-#     if isinstance(test, tuple) and session_users[chat_id].get('question'):
-#         test = test[0]
-#         session_users[chat_id]['start_test'] = test
-#         bot.send_message(message.chat.id, test.key()[0])
-#         session_users[message.chat.id]['question'] = test.key()[0]
-#     elif session_users[message.chat.id].get('question'):
-#         question = session_users[message.chat.id].get('question')
-#         answer = look_answer_in_test(question=question)
-#         response = requests.post(
-#             "http://localhost:11434/api/generate",
-#             json={
-#                 "model": "phi3",
-#                 "prompt": f'''смотри ты должен проверить ответ и дать развернутый ответ если чтото гдето не так и объяснить почему это не так
-# вот вопрос - {question} вот точный ответ на него в нем нет ошибки - {answer} а вот ответ который ты должен проверить и в котором может быть ошибка - {message.text}
-# и оцени ответ который может быть не правильным если он верный так и напиши что он верный и напиши чтото еще по типу ты молодец если нет то напиши почему нет и как будет верно и почему ''',
-#                 "stream": False
-#             }
-#         )
-
-#         print(response.json()['response'])
-#         bot.send_message(message.chat.id, response.json()['response'])
-
-
-
-
-
-
 @bot.message_handler(func=lambda x: True)
 def eco_all(message):
     print(1)
@@ -270,4 +212,3 @@ while flag:
     except Exception as _e:
         print(_e)
 
-# ollama run phi3
