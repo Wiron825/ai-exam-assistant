@@ -23,6 +23,14 @@ flag = True
 session_users = {}
 
 
+@bot.message_handler(commands=['s', 'start'])
+def start_bot(message):
+     bot.send_message(message.chat.id, '''Добро пожаловать в бота который бесплатно 
+поможет подготовиться к ОГЕ или ЕГЕ, или просто подтянит твои знания по школьной програме
+чтоб понять что делать и как запустить бота напиши команду 
+/m, /menu - эта команда открывает меню действий которые ты можешь сделать''')
+
+
 @bot.message_handler(commands=['m', 'menu'])
 def start_menu(message):
     bot.send_message(message.chat.id, '''/m, /menu - меню команд,
