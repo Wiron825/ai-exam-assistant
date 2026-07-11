@@ -15,6 +15,8 @@ metadata = MetaData()
 
 
 class User(Base):
+    '''Класс плозователь с информацией о нем (тг id,
+        имя, его статус и дата последнего входа)''' 
     __tablename__ = "users"
     tg_id = Column(Integer(), primary_key=True)
     name = Column(String(200), nullable=False)
@@ -24,6 +26,7 @@ class User(Base):
 
 
 class Subject(Base):
+    '''Класс предмет с информацией о нем (его idи название)''' 
     __tablename__ = "subjects"
     id = Column(Integer(), primary_key=True)
     subject = Column(String)
@@ -31,6 +34,8 @@ class Subject(Base):
 
 
 class Topic(Base):
+    '''Класс тема с информацией о ней (её id,
+        id предмета, название темы и теория по ней)''' 
     __tablename__ = "topics"
     id = Column(Integer(), primary_key=True)
     subject_id = Column(ForeignKey("subjects.id", ondelete="CASCADE"))
@@ -38,6 +43,8 @@ class Topic(Base):
     theory = Column(String)
 
 class Test(Base):
+    '''Класс тестирование с информацией о нем (его id,
+        id темы, вопрос и ответ на него)''' 
     __tablename__ = 'tests'
     id = Column(Integer(), primary_key=True)
     topics_id = Column(ForeignKey("topics.id", ondelete="CASCADE"))
@@ -45,6 +52,8 @@ class Test(Base):
     answer = Column(String)
 
 class User_result(Base):
+    '''Класс результат пользователя с информацией о нем (его id,
+        тг id пользователя, id темы и результат тестирования)''' 
     __tablename__ = 'user_results'
     id = Column(Integer(), primary_key=True)
     tg_id = Column(ForeignKey("users.tg_id", ondelete="CASCADE"))
